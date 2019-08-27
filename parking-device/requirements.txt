@@ -1,0 +1,5 @@
+numpy==1.15.4
+requests==2.20.1
+boto3==1.9.62
+paho_mqtt==1.4.0
+picamera==1.13

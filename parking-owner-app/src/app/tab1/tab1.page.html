@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Devices
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div padding>
+        <ion-button color="success" size="large" [routerLink]="'/app/tabs/tab1/newdevice'" expand="block">ADD DEVICE</ion-button>
+    </div>
+    <ion-list>
+        <ion-item [routerLink]="'/app/tabs/tab1/devicedetail/' + d.DEVICE_ID" *ngFor="let d of devices">
+          <ion-icon name="aperture" item-start></ion-icon>
+             <p padding>{{d.DEVICE_ID}}</p>
+        </ion-item>
+      </ion-list>
+</ion-content>

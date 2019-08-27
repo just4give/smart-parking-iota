@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Register New Device</ion-title>
+    <ion-buttons slot="start">
+        <ion-back-button defaultHref="/app/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form  #form="ngForm" (ngSubmit)="register(form)">
+        <ion-grid>
+          <ion-row color="primary" justify-content-center>
+            <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+              
+              <div>
+                
+                <ion-item>
+                  <ion-input name="deviceId" type="text" placeholder="Device ID" ngModel required></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-input name="plateNo" type="text" placeholder="Plate No" ngModel required></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-input name="seed" type="text" placeholder="Seed" ngModel required></ion-input>
+                </ion-item>
+                
+              </div>
+              <div padding>
+                <ion-button color="success" size="large" type="submit"  expand="block">REGISTER</ion-button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+</ion-content>

@@ -1,0 +1,21 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@iota/converter": "^1.0.0-beta.21",
+    "@iota/core": "^1.0.0-beta.21",
+    "@iota/mam": "^0.7.3",
+    "bluebird": "^3.5.5",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "sqlite3": "^4.1.0"
+  }
+}
