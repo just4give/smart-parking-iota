@@ -19,7 +19,6 @@ const iota =  IOTA({
 let seed;
 let deviceId;
 let currentHashCount=0;
-let oledMessage="Howdy!";
 let mamState;
 let intervalId;
 let content;
@@ -46,7 +45,8 @@ async function init(){
 
         deviceId = content.deviceId;
         let secretKeyTrytes = asciiToTrytes(deviceId);
-
+        //during first time boot, load seeds from backend server
+        //and store locally
         if(!content.seed){
             let response = await axios.get(BACKEND_URL+'/api/init/car-device/'+deviceId);
         
@@ -87,6 +87,8 @@ async function init(){
 
 async function checkForPayment(){
     try {
+        //check for new payment request send by backend server
+        //at the receiving address
         console.log("check for payment request");
         let hash = await iota.findTransactions({addresses:[content.receivingAddress]});
     
@@ -108,10 +110,7 @@ async function checkForPayment(){
             msg = decrypt(msgAsSring,deviceId);
             console.log("decrypted= "+msg);
             let decryptedObj = JSON.parse(msg);
-            
-            
-            
-            
+            //look for payment initiate request. Ignore anything else.
             if(decryptedObj.type!=='initiate'){
                 return;
             }

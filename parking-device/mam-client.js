@@ -59,7 +59,7 @@ mqttServ.on('published', async (packet, client)=> {
         }
         await publishToMam(mamMessage);
         
-        //also call REST API to initial payment
+        //also call backend REST API to initial payment
         let payment = {
             deviceId: deviceId,
             plateNo: obj.plateNo
@@ -179,6 +179,8 @@ function encrypt(text,password){
 
 async function init(){
     console.log("Device not yet registered...");
+    //when device is booted from first time, get the seeds from backend server
+    //and store locally
     if(!content.seed){
         let response = await axios.get(BACKEND_URL+'/api/init/parking-device/'+deviceId);
         while(!response.data){
@@ -204,7 +206,7 @@ async function init(){
         mamState.channel.next_root = state.next_root;
         mamState.channel.start = state.start;
     }
-
+    //public MQTT broker to communicate between devices and mobile apps
     mqttClient  = mqtt.connect("mqtt://broker.hivemq.com",{clientId:deviceId});
 
     mqttClient.on("connect",()=>{	

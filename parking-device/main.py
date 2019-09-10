@@ -51,10 +51,8 @@ GPIO.setup(AMBER_LIGHT, GPIO.OUT)
 GPIO.setup(GREEN_LIGHT, GPIO.OUT)
 
 occupied = False
-ALPR_SECRET_KEY = 'xxx'
-
-
-
+#ALPR Secret key got from https://cloud.openalpr.com
+ALPR_SECRET_KEY = 'sk_xxxxxxxxx'
 
 def turnOffLights():
     GPIO.output(RED_LIGHT, False)
@@ -106,6 +104,7 @@ def distance():
 def detectLicensePlate():
     PLATE=None
     print("Capturing image...")
+    #capture image from Pi Cam when object is found
     camera.capture('image.jpg')
     with open('image.jpg', 'rb') as image_file:
         img_base64 = base64.b64encode(image_file.read())
@@ -139,6 +138,9 @@ def initiatePayment(plate):
     key = "{rand}.jpg".format(rand=str(uuid.uuid4()))
     s3_client.upload_file('image2.jpg', 'spsiota', key)
     mock={'plateNo':plate,'s3Key':key}
+    #publish payment initiation request to local Mosca MQTT
+    #mam-client.js has MQTT Mosca running and make API call
+    #to backend server
     client.publish('/intiate/payment',json.dumps(mock))
 
 
@@ -168,5 +170,6 @@ if __name__ == '__main__':
         # Reset by pressing CTRL + C
     except KeyboardInterrupt:
         print("Measurement stopped by User")
+        #Clean up GPIO when program is terminated
         GPIO.cleanup()
 
